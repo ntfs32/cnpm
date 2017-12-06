@@ -1,9 +1,9 @@
-FROM node:6.10.2-slim
+FROM node:8
 
 
 # Working enviroment
 ENV APPDIR /var/app/cnpmjs.org
-ENV CNPMJS_ORG_VERSION 2.19.4
+ENV CNPM_VERSION 2.19.4
 
 RUN \
   mkdir /var/app && \
@@ -13,9 +13,9 @@ RUN \
 USER www-data
 
 RUN \
-  wget -P /tmp https://github.com/cnpm/cnpmjs.org/archive/${CNPMJS_ORG_VERSION}.tar.gz && \
-  tar xvzf /tmp/${CNPMJS_ORG_VERSION}.tar.gz -C /var/app && \
-  mv /var/app/cnpmjs.org-${CNPMJS_ORG_VERSION} ${APPDIR}
+  wget -P /tmp https://github.com/cnpm/cnpmjs.org/archive/${CNPM_VERSION}.tar.gz && \
+  tar xvzf /tmp/${CNPM_VERSION}.tar.gz -C /var/app && \
+  mv /var/app/cnpmjs.org-${CNPM_VERSION} ${APPDIR}
 
 WORKDIR ${APPDIR}
 
