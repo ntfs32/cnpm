@@ -5,15 +5,11 @@ FROM node:8.9-alpine
 ENV APPDIR /var/app/cnpmjs.org
 ENV CNPM_VERSION 2.19.4
 
-RUN \
-  mkdir /var/app && \
-  install -o www-data -d /var/app && \
-  mkdir /var/www && chown www-data:www-data -R /var/www
+RUN adduser www-data -D -h /var/app && mkdir /var/www && chown www-data:www-data -R /var/www
 
+RUN apk add --update openssl
 USER www-data
-
-RUN \
-  wget -P /tmp https://github.com/cnpm/cnpmjs.org/archive/${CNPM_VERSION}.tar.gz && \
+RUN wget -P /tmp https://github.com/cnpm/cnpmjs.org/archive/${CNPM_VERSION}.tar.gz && \
   tar xvzf /tmp/${CNPM_VERSION}.tar.gz -C /var/app && \
   mv /var/app/cnpmjs.org-${CNPM_VERSION} ${APPDIR}
 
